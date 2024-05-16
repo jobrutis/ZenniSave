@@ -1,5 +1,6 @@
 package com.example.zennisave;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,67 +18,62 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.zennisave.DBGestion.Db_Ingresos;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class InsertarDinero extends AppCompatActivity {
-
-
-
-    String fecha;
+  Button atras;
+    EditText dinero, concepto;
+    Button Binsertar;
+    CalendarView calendario;
+    SimpleDateFormat formato;
+    Date formatDate;
     private void limpiar(){
         dinero.setText("");
         concepto.setText("");
     }
-    EditText dinero, concepto;
-    Button Bdinero;
-    CalendarView calendario;
-    SimpleDateFormat formato;
-    Date fechaDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main2);
-        dinero = (EditText) findViewById(R.id.dineroIns);
-        concepto = (EditText) findViewById(R.id.concepIn);
+        setContentView(R.layout.activity_insertardinero);
+        dinero= findViewById(R.id.dineroIns);
+        Binsertar =findViewById(R.id.botoninsertar);
+        concepto=findViewById(R.id.concepIn);
         calendario = findViewById(R.id.caleIngreso);
         formato =new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        Bdinero = findViewById(R.id.botoninsertar);
-        Bdinero.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), (CharSequence) dinero,Toast.LENGTH_LONG).show();
-                Db_Ingresos ingreso = new Db_Ingresos(InsertarDinero.this);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date parsed = null;
-                try {
-
-                    parsed = sdf.parse(fecha);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-
-                java.sql.Date data = new java.sql.Date(parsed.getTime());
-
-                ingreso.insertarDinero(Integer.parseInt(dinero.getText().toString()),concepto.getText().toString(),data);
-            }
-        });
+        atras= findViewById(R.id.Atras);
         calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                fecha = dayOfMonth+"/"+month+"/"+year;
-                {
-                    try {
-                        fechaDate = formato.parse(fecha);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int mes, int dia) {
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.set(year, mes, dia);
+                formatDate = selectedDate.getTime();
+                Log.w("FECHA", String.valueOf(formatDate));
+                //fecha.setText(formato.format(selectedDate.getTime())); // Asignar la fecha formateada al EditText fecha
+            }
+        });
+
+        atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(InsertarDinero.this,PaginaPrincipal.class);
+                startActivity(i);
+            }
+        });
+        Binsertar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Db_Ingresos dbingresado = new Db_Ingresos(InsertarDinero.this);
+                String conceptoStr = concepto.getText().toString();
+                String fechaStr = formatDate.toString(); // Si tienes un TextView o EditText para la fecha
+                String dineroStr = dinero.getText().toString();
+                int dineroInt = Integer.parseInt(dineroStr);
+                dbingresado.insertarDinero(dineroInt,conceptoStr,fechaStr);
+                limpiar();
+                Toast.makeText(InsertarDinero.this,"Insertado correctamente",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -86,6 +82,10 @@ public class InsertarDinero extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
     }
 
 }
+

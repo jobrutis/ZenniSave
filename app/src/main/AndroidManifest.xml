@@ -13,7 +13,16 @@
         android:theme="@style/Theme.ZenniSave"
         tools:targetApi="31">
         <activity
+            android:name=".ResumenS"
+            android:exported="false" />
+        <activity
             android:name=".ResumenM"
+            android:exported="false" />
+        <activity
+            android:name=".IngresarD"
+            android:exported="false" />
+        <activity
+            android:name=".Insertar_D"
             android:exported="false" />
         <activity
             android:name=".InsertarDinero"

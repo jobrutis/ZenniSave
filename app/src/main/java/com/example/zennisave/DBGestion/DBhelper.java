@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class DBhelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION =1;
-    private static final String DATABASE_NOMBRE ="DBZenisave.db";
+    private static final String DATABASE_NOMBRE ="DineroZ.db";
     public static final String TABLE_DINEROTOTAL ="t_finanzas";//Dinero que se va guardar
     public static final String TABLE_GASTOS ="t_gastos";//dinero que se va a gastar
     public static final String TABLE_INGRESOS ="t_ingreso";
@@ -27,13 +27,13 @@ public class DBhelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_GASTOS + " (" +
                 "id_gastos INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "concepto TEXT NOT NULL, " +
-                "fecha DATE NOT NULL, " +
+                "fecha TEXT NOT NULL, " +
                 "dinerogastos INTEGER NOT NULL)");
 
         db.execSQL("CREATE TABLE " + TABLE_INGRESOS + " (" +
                 "id_ingresos INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "concepto TEXT NOT NULL, " +
-                "fecha DATE NOT NULL, " +
+                "fecha TEXT NOT NULL, " +
                 "dineroingresos INTEGER NOT NULL)");
     }
 

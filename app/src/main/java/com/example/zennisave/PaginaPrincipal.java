@@ -13,22 +13,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class PaginaPrincipal extends AppCompatActivity {
 
-    Button Bañadir;
-    Button Bresumen;
+    Button Bañadir,BResumenM,BResumenS, Benviar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pagina_principal);
-        Bañadir=(Button) findViewById(R.id.añadir);
-        Bresumen=(Button)findViewById(R.id.ResumenM);
-        Bresumen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i= new Intent(PaginaPrincipal.this,ResumenM.class);
-                startActivity(i);
-            }
-        });
+        Bañadir= findViewById(R.id.añadir);
+        Benviar=findViewById(R.id.enviar);
+        BResumenM=findViewById(R.id.ResumenM);
+        BResumenS=findViewById(R.id.ResumenS);
         Bañadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +31,20 @@ public class PaginaPrincipal extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        BResumenM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(PaginaPrincipal.this,ResumenM.class);
+                startActivity(i);
+            }
+        });
+        BResumenS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(PaginaPrincipal.this,ResumenS.class);
+                startActivity(i);
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.logo), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

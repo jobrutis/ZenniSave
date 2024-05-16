@@ -11,18 +11,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ResumenM extends AppCompatActivity {
-Button atras;
+public class ResumenS extends AppCompatActivity {
+Button BatrasS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_resumen_m2);
-        atras=findViewById(R.id.AtrasM);
-        atras.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_resumen_s);
+        BatrasS =findViewById(R.id.AtrasS);
+        BatrasS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(ResumenM.this,PaginaPrincipal.class);
+                Intent i= new Intent(ResumenS.this,PaginaPrincipal.class);
                 startActivity(i);
             }
         });
