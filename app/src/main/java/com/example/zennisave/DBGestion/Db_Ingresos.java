@@ -65,7 +65,7 @@ public class Db_Ingresos extends DBhelper {
             Cursor selectCursor = null;
             selectCursor=dbz.rawQuery("SELECT dineroT FROM " + TABLE_DINEROTOTAL, null);
 
-            if(cursor.moveToFirst()){
+            if(cursor.moveToFirst()){//
                 do {
                     dineroResult = selectCursor.getInt(0);
                 } while(selectCursor.moveToNext());
