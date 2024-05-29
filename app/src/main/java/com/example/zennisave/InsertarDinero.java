@@ -72,8 +72,9 @@ public class InsertarDinero extends AppCompatActivity {
                 String dineroStr = dinero.getText().toString();
                 int dineroInt = Integer.parseInt(dineroStr);
                 dbingresado.insertarDinero(dineroInt,conceptoStr,fechaStr);
-                limpiar();
+                dbingresado.obtenerdinerototal(dineroInt);
                 Toast.makeText(InsertarDinero.this,"Insertado correctamente",Toast.LENGTH_LONG).show();
+                limpiar();
             }
         });
 
