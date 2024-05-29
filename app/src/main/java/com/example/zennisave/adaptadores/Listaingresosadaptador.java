@@ -21,7 +21,7 @@ public class Listaingresosadaptador extends RecyclerView.Adapter<Listaingresosad
     @NonNull
     @Override
     public ingresoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_resumen_m, null,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_resumen_m2, null,false);
         return new ingresoViewHolder(view);
     }
 
@@ -41,7 +41,7 @@ public class Listaingresosadaptador extends RecyclerView.Adapter<Listaingresosad
         public ingresoViewHolder(@NonNull View itemView) {
             super(itemView);
             datos=itemView.findViewById(R.id.datos);
-            listaD=itemView.findViewById(R.id.listaD);
+            listaD=itemView.findViewById(R.id.listaDi);
         }
     }
 }
