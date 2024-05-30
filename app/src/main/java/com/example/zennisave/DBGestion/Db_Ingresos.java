@@ -39,42 +39,46 @@ public class Db_Ingresos extends DBhelper {
        }
 
     }
-    public void obtenerdinerototal(Integer ingreso){
-        DBhelper db =new DBhelper(context);
-        SQLiteDatabase dbz= db.getReadableDatabase();
-        ArrayList<Total> dineroT= new ArrayList<>();
-        Integer count = 0;
-        Integer dineroResult = 0;
+    public void obtenerdinerototal(Integer ingreso) {
+        DBhelper dbHelper = new DBhelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SQLiteDatabase dbWritable = dbHelper.getWritableDatabase();
 
-        Cursor cursor=null;
-        cursor=dbz.rawQuery("SELECT COUNT(*) FROM " + TABLE_DINEROTOTAL, null);
+        // 1. Insertar el nuevo ingreso en TABLE_INGRESOS
+        ContentValues ingresoValues = new ContentValues();
+        ingresoValues.put("monto", ingreso); // Asumiendo que el campo se llama "monto"
+        dbWritable.insert(TABLE_INGRESOS, null, ingresoValues);
 
-        if (cursor.moveToFirst()){
-            do {
-                count = cursor.getInt(0);
-            } while(cursor.moveToNext());
+        // 2. Obtener el valor actual de dineroT en TABLE_DINEROTOTAL
+        String checkQuery = "SELECT dineroT FROM " + TABLE_DINEROTOTAL;
+        Cursor checkCursor = db.rawQuery(checkQuery, null);
+        int dineroTotal = 0;
+
+        if (checkCursor.moveToFirst()) {
+            dineroTotal = checkCursor.getInt(0);
         }
-        cursor.close();
+        checkCursor.close();
 
+        // 3. Añadir el valor del parámetro ingreso al dineroTotal
+        dineroTotal += ingreso;
+
+        // 4. Preparar los valores para insertar o actualizar
         ContentValues values = new ContentValues();
-        values.put("dineroT", ingreso);
+        values.put("dineroT", dineroTotal);
 
-        if(count == 0){
-            dbz.insert(TABLE_DINEROTOTAL, null, values);
-        }else{
-            Cursor selectCursor = null;
-            selectCursor=dbz.rawQuery("SELECT dineroT FROM " + TABLE_DINEROTOTAL, null);
-
-            if(cursor.moveToFirst()){//
-                do {
-                    dineroResult = selectCursor.getInt(0);
-                } while(selectCursor.moveToNext());
-            }
-            selectCursor.close();
-            values.put("dineroT", dineroResult+ ingreso);
-
+        // 5. Comprobar si TABLE_DINEROTOTAL ya tiene registros
+        int rows = db.update(TABLE_DINEROTOTAL, values, null, null);
+        if (rows == 0) {
+            // Si no existe, insertar el nuevo valor
+            dbWritable.insert(TABLE_DINEROTOTAL, null, values);
         }
+
+        db.close();
+        dbWritable.close();
     }
+
+
+
     public ArrayList<Ingresos>Mostrardatos(){
         DBhelper dBhelper = new DBhelper(context);
         SQLiteDatabase db = dBhelper.getWritableDatabase();

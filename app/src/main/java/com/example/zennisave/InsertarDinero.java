@@ -63,20 +63,28 @@ public class InsertarDinero extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Binsertar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Db_Ingresos dbingresado = new Db_Ingresos(InsertarDinero.this);
-                String conceptoStr = concepto.getText().toString();
-                String fechaStr = formatDate.toString(); // Si tienes un TextView o EditText para la fecha
-                String dineroStr = dinero.getText().toString();
-                int dineroInt = Integer.parseInt(dineroStr);
-                dbingresado.insertarDinero(dineroInt,conceptoStr,fechaStr);
-                dbingresado.obtenerdinerototal(dineroInt);
-                Toast.makeText(InsertarDinero.this,"Insertado correctamente",Toast.LENGTH_LONG).show();
-                limpiar();
+        Binsertar.setOnClickListener(new View.OnClickListener() {     @Override
+        public void onClick(View v) {
+            Db_Ingresos dbingresado = new Db_Ingresos(InsertarDinero.this);
+            String conceptoStr = concepto.getText().toString();
+            String fechaStr = "";
+            if (formatDate != null) {
+                fechaStr = formatDate.toString();
+            } else {
+                Date hoy = new Date();
+                SimpleDateFormat formatter =new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                fechaStr = formatter.format(hoy);
             }
+            //              // Si tienes un TextView o EditText para la fecha
+            String dineroStr = dinero.getText().toString();
+            int dineroInt = Integer.parseInt(dineroStr);
+            dbingresado.insertarDinero(dineroInt,conceptoStr,fechaStr);
+            dbingresado.obtenerdinerototal(dineroInt);
+            Toast.makeText(InsertarDinero.this,"Insertado correctamente",Toast.LENGTH_LONG).show();
+            limpiar();
+        }
         });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
