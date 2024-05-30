@@ -92,7 +92,7 @@ public class PaginaPrincipal extends AppCompatActivity {
                         SimpleDateFormat formatter =new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                         fechaStr = formatter.format(hoy);
                     }
-                    //              // Si tienes un TextView o EditText para la fecha
+
                     String dineroStr = Cdinero.getText().toString();
                     int dineroInt = Integer.parseInt(dineroStr);
                     dbrestado.restarDinero(dineroInt,conceptoStr,fechaStr);

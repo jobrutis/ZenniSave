@@ -44,12 +44,12 @@ public class Db_Ingresos extends DBhelper {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         SQLiteDatabase dbWritable = dbHelper.getWritableDatabase();
 
-        // 1. Insertar el nuevo ingreso en TABLE_INGRESOS
+
         ContentValues ingresoValues = new ContentValues();
         ingresoValues.put("monto", ingreso); // Asumiendo que el campo se llama "monto"
         dbWritable.insert(TABLE_INGRESOS, null, ingresoValues);
 
-        // 2. Obtener el valor actual de dineroT en TABLE_DINEROTOTAL
+
         String checkQuery = "SELECT dineroT FROM " + TABLE_DINEROTOTAL;
         Cursor checkCursor = db.rawQuery(checkQuery, null);
         int dineroTotal = 0;
@@ -58,18 +58,11 @@ public class Db_Ingresos extends DBhelper {
             dineroTotal = checkCursor.getInt(0);
         }
         checkCursor.close();
-
-        // 3. Añadir el valor del parámetro ingreso al dineroTotal
         dineroTotal += ingreso;
-
-        // 4. Preparar los valores para insertar o actualizar
         ContentValues values = new ContentValues();
         values.put("dineroT", dineroTotal);
-
-        // 5. Comprobar si TABLE_DINEROTOTAL ya tiene registros
         int rows = db.update(TABLE_DINEROTOTAL, values, null, null);
         if (rows == 0) {
-            // Si no existe, insertar el nuevo valor
             dbWritable.insert(TABLE_DINEROTOTAL, null, values);
         }
 
