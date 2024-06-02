@@ -18,6 +18,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.zennisave.DBGestion.Db_Ingresos;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -69,19 +71,27 @@ public class InsertarDinero extends AppCompatActivity {
             String conceptoStr = concepto.getText().toString();
             String fechaStr = "";
             if (formatDate != null) {
-                fechaStr = formatDate.toString();
+                // Usa SimpleDateFormat para formatear la fecha correctamente
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                fechaStr = formatter.format(formatDate);
             } else {
                 Date hoy = new Date();
-                SimpleDateFormat formatter =new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 fechaStr = formatter.format(hoy);
             }
-            //              // Si tienes un TextView o EditText para la fecha
             String dineroStr = dinero.getText().toString();
-            int dineroInt = Integer.parseInt(dineroStr);
-            dbingresado.insertarDinero(dineroInt,conceptoStr,fechaStr);
-            dbingresado.obtenerdinerototal(dineroInt);
+
+            try {
+                BigDecimal dinero = new BigDecimal(dineroStr).setScale(2, RoundingMode.HALF_UP);
+                float dineroFloat = dinero.floatValue();
+                dbingresado.insertarDinero(dineroFloat, conceptoStr, fechaStr);
+                dbingresado.obtenerdinerototal(dineroFloat);
+            } catch (NumberFormatException e) {
+                System.err.println("Formato de número inválido: " + dineroStr);
+            }
             Toast.makeText(InsertarDinero.this,"Insertado correctamente",Toast.LENGTH_LONG).show();
             limpiar();
+
         }
         });
 

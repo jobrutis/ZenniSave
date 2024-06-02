@@ -6,7 +6,7 @@ public class Gastos {
     private int id;
     private String concepto;
     private Date fecha;
-    private int dinerogastos;
+    private float dinerogastos;
 
     public int getId() {
         return id;
@@ -32,11 +32,11 @@ public class Gastos {
         this.fecha = fecha;
     }
 
-    public int getDinerogastos() {
+    public float getDinerogastos() {
         return dinerogastos;
     }
 
-    public void setDinerogastos(int dinerogastos) {
+    public void setDinerogastos(float dinerogastos) {
         this.dinerogastos = dinerogastos;
     }
 }

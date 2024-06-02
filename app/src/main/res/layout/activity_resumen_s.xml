@@ -20,4 +20,54 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.036" />
 
+    <Button
+        android:id="@+id/separador"
+        android:layout_width="7dp"
+        android:layout_height="527dp"
+        android:background="#000000"
+        android:backgroundTint="#050505"
+        android:textColorLink="#090808"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.72" />
+
+    <EditText
+        android:id="@+id/DineroTotal"
+        android:layout_width="366dp"
+        android:layout_height="575dp"
+        android:background="#A4918C8C"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.634" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resumenSingreso"
+        android:layout_width="169dp"
+        android:layout_height="519dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.744" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resumenSgasto"
+        android:layout_width="179dp"
+        android:layout_height="523dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.759" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

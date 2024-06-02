@@ -6,7 +6,7 @@ public class Ingresos {
     private int id;
     private String concepto;
     private Date fecha;
-    private int dineroingresos;
+    private float dineroingresos;
 
     public int getId() {
         return id;
@@ -24,19 +24,19 @@ public class Ingresos {
         this.concepto = concepto;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public CharSequence getFecha() {
+        return (CharSequence) fecha;
     }
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-    public int getDineroingresos() {
+    public float getDineroingresos() {
         return dineroingresos;
     }
 
-    public void setDineroingresos(int dineroingresos) {
+    public void setDineroingresos(float dineroingresos) {
         this.dineroingresos = dineroingresos;
     }
 }

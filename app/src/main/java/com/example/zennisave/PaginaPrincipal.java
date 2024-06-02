@@ -1,5 +1,6 @@
 package com.example.zennisave;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,21 +12,32 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zennisave.DBGestion.DB_Gastos;
+import com.example.zennisave.DBGestion.DB_Total;
 import com.example.zennisave.DBGestion.Db_Ingresos;
+import com.example.zennisave.adaptadores.AdaptadorDinero;
+import com.example.zennisave.entidades.Total;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.math.RoundingMode;
 import java.util.Locale;
 
 public class PaginaPrincipal extends AppCompatActivity {
+    RecyclerView verTotal;
 
+    ArrayList <Total> totallista;
     Button Bañadir,BResumenM,BResumenS, Benviar;
     EditText Cconcepto,Cdinero;
     CalendarView calendario;
@@ -35,6 +47,7 @@ public class PaginaPrincipal extends AppCompatActivity {
         Cdinero.setText("");
         Cconcepto.setText("");
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +59,12 @@ public class PaginaPrincipal extends AppCompatActivity {
         Cdinero=findViewById(R.id.Dinerodar);
         BResumenM=findViewById(R.id.ResumenM);
         BResumenS=findViewById(R.id.ResumenS);
+        verTotal=findViewById(R.id.verTotal);
+        verTotal.setLayoutManager(new LinearLayoutManager(this));
+        DB_Total pikachu=new DB_Total(PaginaPrincipal.this);
+        totallista =new ArrayList<>();
+        AdaptadorDinero adaptadorDinero= new AdaptadorDinero(pikachu.mostrarTotal());
+        verTotal.setAdapter(adaptadorDinero);
         calendario = findViewById(R.id.calendario);
         formato =new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Bañadir.setOnClickListener(new View.OnClickListener() {
@@ -85,20 +104,29 @@ public class PaginaPrincipal extends AppCompatActivity {
                     DB_Gastos dbrestado = new DB_Gastos(PaginaPrincipal.this);
                     String conceptoStr = Cconcepto.getText().toString();
                     String fechaStr = "";
-                    if (formatDate != null) {
-                        fechaStr = formatDate.toString();
-                    } else {
-                        Date hoy = new Date();
-                        SimpleDateFormat formatter =new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                        fechaStr = formatter.format(hoy);
-                    }
-
-                    String dineroStr = Cdinero.getText().toString();
-                    int dineroInt = Integer.parseInt(dineroStr);
-                    dbrestado.restarDinero(dineroInt,conceptoStr,fechaStr);
-                    dbrestado.registrarGasto(dineroInt);
-                    Toast.makeText(PaginaPrincipal.this,"Insertado correctamente",Toast.LENGTH_LONG).show();
+                if (formatDate != null) {
+                    // Usa SimpleDateFormat para formatear la fecha correctamente
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    fechaStr = formatter.format(formatDate);
+                } else {
+                    Date hoy = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    fechaStr = formatter.format(hoy);
+                }
+                String dineroStr = Cdinero.getText().toString();
+                try {
+                    // Convertir la cadena a BigDecimal y redondear a 2 decimales
+                    BigDecimal dinero = new BigDecimal(dineroStr).setScale(2, RoundingMode.HALF_UP);
+                    float dineroFloat = dinero.floatValue();
+                    // Llamar a los métodos de la base de datos utilizando BigDecimal
+                    dbrestado.restarDinero(dineroFloat, conceptoStr, fechaStr);
+                    dbrestado.registrarGasto(dineroFloat);
+                } catch (NumberFormatException e) {
+                    System.err.println("Formato de número inválido: " + dineroStr);
+                }
+                    Toast.makeText(PaginaPrincipal.this,"Restado correctamente",Toast.LENGTH_LONG).show();
                     limpiar();
+
             }
 
         });

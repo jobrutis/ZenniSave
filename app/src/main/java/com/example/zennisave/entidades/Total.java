@@ -2,12 +2,12 @@ package com.example.zennisave.entidades;
 
 public class Total {
     public int id;
-    private int dineroT;
-    public int getDineroT() {
+    private float dineroT;
+    public float getDineroT() {
         return dineroT;
     }
 
-    public void setDineroT(int dineroT) {
+    public void setDineroT(float dineroT) {
         this.dineroT = dineroT;
     }
 

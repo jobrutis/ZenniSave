@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DBhelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION =1;
+    private static final int DATABASE_VERSION =2;
     private static final String DATABASE_NOMBRE ="DineroZ.db";
     public static final String TABLE_DINEROTOTAL ="t_finanzas";//Dinero que se va guardar
     public static final String TABLE_GASTOS ="t_gastos";//dinero que se va a gastar
@@ -22,19 +22,19 @@ public class DBhelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_DINEROTOTAL + " (" +
                 "id_dinerototal INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "dineroT INTEGER NOT NULL)");
+                "dineroT FLOAT NOT NULL)");
 
         db.execSQL("CREATE TABLE " + TABLE_GASTOS + " (" +
                 "id_gastos INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "concepto TEXT NOT NULL, " +
                 "fecha TEXT NOT NULL, " +
-                "dinerogastos INTEGER NOT NULL)");
+                "dinerogastos FLOAT NOT NULL)");
 
         db.execSQL("CREATE TABLE " + TABLE_INGRESOS + " (" +
                 "id_ingresos INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "concepto TEXT NOT NULL, " +
                 "fecha TEXT NOT NULL, " +
-                "dineroingresos INTEGER NOT NULL)");
+                "dineroingresos FLOAT NOT NULL)");
     }
 
     @Override

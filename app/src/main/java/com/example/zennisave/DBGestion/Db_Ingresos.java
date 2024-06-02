@@ -4,14 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+
+import java.util.Calendar;
 
 import androidx.annotation.Nullable;
 
 import com.example.zennisave.InsertarDinero;
+import com.example.zennisave.ResumenS;
 import com.example.zennisave.entidades.Ingresos;
-import com.example.zennisave.entidades.Total;
 
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Db_Ingresos extends DBhelper {
@@ -22,8 +25,12 @@ public class Db_Ingresos extends DBhelper {
         super((Context) context);
         this.context = context;
     }
+    public Db_Ingresos(@Nullable ResumenS context){
+        super((Context) context);
+        this.context = context;
+    }
 
-    public void insertarDinero(int dineroingresos, String fecha, String concepto){
+    public void insertarDinero(float dineroingresos, String fecha, String concepto){
        try{
            DBhelper db =new DBhelper(context);
            SQLiteDatabase dbz= db.getWritableDatabase();
@@ -39,23 +46,23 @@ public class Db_Ingresos extends DBhelper {
        }
 
     }
-    public void obtenerdinerototal(Integer ingreso) {
+    public void obtenerdinerototal(float ingreso) {
         DBhelper dbHelper = new DBhelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         SQLiteDatabase dbWritable = dbHelper.getWritableDatabase();
 
 
         ContentValues ingresoValues = new ContentValues();
-        ingresoValues.put("monto", ingreso); // Asumiendo que el campo se llama "monto"
+        ingresoValues.put("monto", ingreso);
         dbWritable.insert(TABLE_INGRESOS, null, ingresoValues);
 
 
         String checkQuery = "SELECT dineroT FROM " + TABLE_DINEROTOTAL;
         Cursor checkCursor = db.rawQuery(checkQuery, null);
-        int dineroTotal = 0;
+        float dineroTotal = 0;
 
         if (checkCursor.moveToFirst()) {
-            dineroTotal = checkCursor.getInt(0);
+            dineroTotal = checkCursor.getFloat(0);
         }
         checkCursor.close();
         dineroTotal += ingreso;
@@ -72,22 +79,36 @@ public class Db_Ingresos extends DBhelper {
 
 
 
-    public ArrayList<Ingresos>Mostrardatos(){
+    public ArrayList<Ingresos> Mostrardatos() {
         DBhelper dBhelper = new DBhelper(context);
         SQLiteDatabase db = dBhelper.getWritableDatabase();
-        ArrayList<Ingresos> resumenMS= new ArrayList<>();
-        Ingresos ingresos= null;
-        Cursor cursoringreso=null;
-        cursoringreso=db.rawQuery("SELECT* FROM "+ TABLE_INGRESOS, null);
-        if (cursoringreso.moveToFirst()){
-            do{
+        ArrayList<Ingresos> resumenMS = new ArrayList<>();
+        Ingresos ingresos = null;
+        Cursor cursoringreso = null;
+        String fechaI="";
+        String fechaF="";
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+
+        String fechaInicioSemanaActual = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
+        cal.add(Calendar.DATE, 6);
+        String fechaFinSemanaActual = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
+
+
+        String consultaSQL = "SELECT * FROM " + TABLE_INGRESOS + " WHERE fecha BETWEEN '" + fechaInicioSemanaActual + "' AND '" + fechaFinSemanaActual + "' ORDER BY fecha DESC";
+
+        cursoringreso = db.rawQuery(consultaSQL, null);
+        if (cursoringreso.moveToFirst()) {
+            do {
                 ingresos = new Ingresos();
                 ingresos.setConcepto(cursoringreso.getString(1));
-                ingresos.setDineroingresos(cursoringreso.getInt(3));
+                ingresos.setFecha(Date.valueOf(cursoringreso.getString(2)));
+                ingresos.setDineroingresos(cursoringreso.getFloat(3));
                 resumenMS.add(ingresos);
-            }while(cursoringreso.moveToNext());
+            } while (cursoringreso.moveToNext());
         }
         cursoringreso.close();
         return resumenMS;
     }
+
 }
