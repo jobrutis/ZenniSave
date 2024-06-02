@@ -105,7 +105,6 @@ public class PaginaPrincipal extends AppCompatActivity {
                     String conceptoStr = Cconcepto.getText().toString();
                     String fechaStr = "";
                 if (formatDate != null) {
-                    // Usa SimpleDateFormat para formatear la fecha correctamente
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                     fechaStr = formatter.format(formatDate);
                 } else {
@@ -115,17 +114,18 @@ public class PaginaPrincipal extends AppCompatActivity {
                 }
                 String dineroStr = Cdinero.getText().toString();
                 try {
-                    // Convertir la cadena a BigDecimal y redondear a 2 decimales
                     BigDecimal dinero = new BigDecimal(dineroStr).setScale(2, RoundingMode.HALF_UP);
-                    float dineroFloat = dinero.floatValue();
-                    // Llamar a los métodos de la base de datos utilizando BigDecimal
+                    String dineroStrFormatted = dinero.setScale(2, RoundingMode.HALF_UP).toPlainString();
+                    float dineroFloat = Float.parseFloat(dineroStrFormatted);
                     dbrestado.restarDinero(dineroFloat, conceptoStr, fechaStr);
                     dbrestado.registrarGasto(dineroFloat);
                 } catch (NumberFormatException e) {
                     System.err.println("Formato de número inválido: " + dineroStr);
                 }
-                    Toast.makeText(PaginaPrincipal.this,"Restado correctamente",Toast.LENGTH_LONG).show();
+                    Toast.makeText(PaginaPrincipal.this, "Restado correctamente", Toast.LENGTH_LONG).show();
                     limpiar();
+
+
 
             }
 

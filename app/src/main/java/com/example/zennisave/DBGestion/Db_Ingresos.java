@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 
 import androidx.annotation.Nullable;
@@ -40,45 +42,35 @@ public class Db_Ingresos extends DBhelper {
            values.put("dineroingresos", dineroingresos);
            dbz.insert(TABLE_INGRESOS, null, values);
            dbz.close();
-
        }catch (Exception ex){
            ex.toString();
        }
-
     }
     public void obtenerdinerototal(float ingreso) {
         DBhelper dbHelper = new DBhelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         SQLiteDatabase dbWritable = dbHelper.getWritableDatabase();
-
-
         ContentValues ingresoValues = new ContentValues();
         ingresoValues.put("monto", ingreso);
         dbWritable.insert(TABLE_INGRESOS, null, ingresoValues);
-
-
         String checkQuery = "SELECT dineroT FROM " + TABLE_DINEROTOTAL;
         Cursor checkCursor = db.rawQuery(checkQuery, null);
-        float dineroTotal = 0;
-
+        BigDecimal dineroTotal = BigDecimal.ZERO;
         if (checkCursor.moveToFirst()) {
-            dineroTotal = checkCursor.getFloat(0);
+            dineroTotal = new BigDecimal(checkCursor.getString(0));
         }
         checkCursor.close();
-        dineroTotal += ingreso;
+        BigDecimal ingresoBD = new BigDecimal(Float.toString(ingreso)).setScale(2, RoundingMode.HALF_UP);
+        dineroTotal = dineroTotal.add(ingresoBD);
         ContentValues values = new ContentValues();
-        values.put("dineroT", dineroTotal);
+        values.put("dineroT", dineroTotal.toPlainString());
         int rows = db.update(TABLE_DINEROTOTAL, values, null, null);
         if (rows == 0) {
             dbWritable.insert(TABLE_DINEROTOTAL, null, values);
         }
-
         db.close();
         dbWritable.close();
     }
-
-
-
     public ArrayList<Ingresos> Mostrardatos() {
         DBhelper dBhelper = new DBhelper(context);
         SQLiteDatabase db = dBhelper.getWritableDatabase();
@@ -93,10 +85,7 @@ public class Db_Ingresos extends DBhelper {
         String fechaInicioSemanaActual = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
         cal.add(Calendar.DATE, 6);
         String fechaFinSemanaActual = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
-
-
         String consultaSQL = "SELECT * FROM " + TABLE_INGRESOS + " WHERE fecha BETWEEN '" + fechaInicioSemanaActual + "' AND '" + fechaFinSemanaActual + "' ORDER BY fecha DESC";
-
         cursoringreso = db.rawQuery(consultaSQL, null);
         if (cursoringreso.moveToFirst()) {
             do {
@@ -110,5 +99,4 @@ public class Db_Ingresos extends DBhelper {
         cursoringreso.close();
         return resumenMS;
     }
-
 }

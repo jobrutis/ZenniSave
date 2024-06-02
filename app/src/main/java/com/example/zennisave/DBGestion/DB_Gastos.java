@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 
 import androidx.annotation.Nullable;
@@ -51,25 +53,25 @@ public class DB_Gastos extends DBhelper {
         ContentValues gastoValues = new ContentValues();
         gastoValues.put("monto", gasto);
         dbWritable.insert(TABLE_GASTOS, null, gastoValues);
-
         String checkQuery = "SELECT dineroT FROM " + TABLE_DINEROTOTAL;
         Cursor checkCursor = db.rawQuery(checkQuery, null);
-        float dineroTotal = 0;
+        BigDecimal dineroTotal = BigDecimal.ZERO;
         if (checkCursor.moveToFirst()) {
-            dineroTotal = checkCursor.getInt(0);
+            dineroTotal = new BigDecimal(checkCursor.getString(0));
         }
         checkCursor.close();
-        dineroTotal -= gasto;
+        BigDecimal gastoBD = new BigDecimal(Float.toString(gasto)).setScale(2, RoundingMode.HALF_UP);
+        dineroTotal = dineroTotal.subtract(gastoBD);
         ContentValues values = new ContentValues();
-        values.put("dineroT", dineroTotal);
+        values.put("dineroT", dineroTotal.toPlainString());
         int rows = db.update(TABLE_DINEROTOTAL, values, null, null);
         if (rows == 0) {
             dbWritable.insert(TABLE_DINEROTOTAL, null, values);
         }
-
         db.close();
         dbWritable.close();
     }
+
     public ArrayList<Gastos> Mostrardatosgastos() {
         DBhelper dBhelper = new DBhelper(context);
         SQLiteDatabase db = dBhelper.getWritableDatabase();
