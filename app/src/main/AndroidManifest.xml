@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ZenniSave"
         tools:targetApi="31">
         <activity
+            android:name=".Ayuda"
+            android:exported="false" />
+        <activity
             android:name=".ResumenS"
             android:exported="false" />
         <activity

@@ -38,7 +38,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     RecyclerView verTotal;
 
     ArrayList <Total> totallista;
-    Button Bañadir,BResumenM,BResumenS, Benviar;
+    Button Bañadir,BResumenM,BResumenS, Benviar, Bayuda;
     EditText Cconcepto,Cdinero;
     CalendarView calendario;
     SimpleDateFormat formato;
@@ -59,6 +59,7 @@ public class PaginaPrincipal extends AppCompatActivity {
         Cdinero=findViewById(R.id.Dinerodar);
         BResumenM=findViewById(R.id.ResumenM);
         BResumenS=findViewById(R.id.ResumenS);
+        Bayuda=findViewById(R.id.ayuda);
         verTotal=findViewById(R.id.verTotal);
         verTotal.setLayoutManager(new LinearLayoutManager(this));
         DB_Total pikachu=new DB_Total(PaginaPrincipal.this);
@@ -129,6 +130,13 @@ public class PaginaPrincipal extends AppCompatActivity {
 
             }
 
+        });
+        Bayuda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(PaginaPrincipal.this,Ayuda.class);
+                startActivity(i);
+            }
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.logo), (v, insets) -> {
