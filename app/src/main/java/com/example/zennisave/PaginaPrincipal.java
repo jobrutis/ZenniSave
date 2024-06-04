@@ -110,8 +110,8 @@ public class PaginaPrincipal extends AppCompatActivity {
                     fechaStr = formatter.format(formatDate);
                 } else {
                     Date hoy = new Date();
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                    fechaStr = formatter.format(hoy);
+                    SimpleDateFormat umbreon = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    fechaStr = umbreon.format(hoy);
                 }
                 String dineroStr = Cdinero.getText().toString();
                 try {

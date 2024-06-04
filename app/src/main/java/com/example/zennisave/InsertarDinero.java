@@ -76,8 +76,8 @@ public class InsertarDinero extends AppCompatActivity {
                 fechaStr = formatter.format(formatDate);
             } else {
                 Date hoy = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                fechaStr = formatter.format(hoy);
+                SimpleDateFormat espeon = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                fechaStr = espeon.format(hoy);
             }
             String dineroStr = dinero.getText().toString();
 

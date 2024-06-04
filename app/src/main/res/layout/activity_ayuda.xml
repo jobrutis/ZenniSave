@@ -13,7 +13,7 @@
         android:id="@+id/Atrasayu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Atras"
+        android:text="Atrás"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -23,8 +23,8 @@
 
     <EditText
         android:id="@+id/cuadro"
-        android:layout_width="366dp"
-        android:layout_height="575dp"
+        android:layout_width="369dp"
+        android:layout_height="595dp"
         android:background="#A4918C8C"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.634" />
+        app:layout_constraintVertical_bias="0.583" />
 
     <TextView
         android:id="@+id/titulo1"
@@ -62,21 +62,21 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="48dp"
-        android:layout_height="33dp"
+        android:layout_width="41dp"
+        android:layout_height="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintHorizontal_bias="0.983"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.262"
+        app:layout_constraintVertical_bias="0.271"
         app:srcCompat="@mipmap/mas" />
 
     <Button
@@ -124,9 +124,10 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.565"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.407" />
+        app:layout_constraintVertical_bias="0.396" />
 
     <Button
         android:id="@+id/separador2"
@@ -151,7 +152,7 @@
         android:layout_width="317dp"
         android:layout_height="26dp"
         android:shadowColor="#000000"
-        android:text=" ¿Cómo deberia poner mi dinero?"
+        android:text=" ¿Cómo debería poner mi dinero?"
         android:textColor="#040303"
         android:textColorHighlight="#000000"
         android:textColorHint="#000000"
@@ -173,6 +174,7 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.565"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.6" />
@@ -221,7 +223,8 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.565"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787" />
+        app:layout_constraintVertical_bias="0.773" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -85,8 +85,8 @@ public class Db_Ingresos extends DBhelper {
         String fechaInicioSemanaActual = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
         cal.add(Calendar.DATE, 6);
         String fechaFinSemanaActual = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
-        String consultaSQL = "SELECT * FROM " + TABLE_INGRESOS + " WHERE fecha BETWEEN '" + fechaInicioSemanaActual + "' AND '" + fechaFinSemanaActual + "' ORDER BY fecha DESC";
-        cursoringreso = db.rawQuery(consultaSQL, null);
+
+        cursoringreso = db.rawQuery("SELECT * FROM " + TABLE_INGRESOS, null);
         if (cursoringreso.moveToFirst()) {
             do {
                 ingresos = new Ingresos();

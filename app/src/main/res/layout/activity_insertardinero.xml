@@ -27,15 +27,14 @@
         android:id="@+id/botoninsertar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="añadir"
+        android:onClick="updateText"
+        android:text="Añadir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.907"
-        android:onClick="updateText"
-        />
+        app:layout_constraintVertical_bias="0.907" />
 
     <CalendarView
         android:id="@+id/caleIngreso"
@@ -68,7 +67,7 @@
         android:id="@+id/Atras"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Atras"
+        android:text="Atrás"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
