@@ -1,5 +1,4 @@
 package com.example.zennisave;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.example.zennisave.entidades.Gastos;
 import com.example.zennisave.entidades.Ingresos;
 
 import java.util.ArrayList;
-
 public class MovimientoDeDinero extends AppCompatActivity {
     RecyclerView resumenSingreso, resumenSgasto;
     ArrayList<Gastos> resumengastos;

@@ -1,5 +1,4 @@
 package com.example.zennisave;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +29,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.math.RoundingMode;
 import java.util.Locale;
-
 public class PaginaPrincipal extends AppCompatActivity {
     RecyclerView verTotal;
 
@@ -44,7 +42,6 @@ public class PaginaPrincipal extends AppCompatActivity {
         Cdinero.setText("");
         Cconcepto.setText("");
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

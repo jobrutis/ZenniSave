@@ -1,5 +1,4 @@
 package com.example.zennisave;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
 public class InsertarDinero extends AppCompatActivity {
   Button atras;
     EditText dinero, concepto;
@@ -57,7 +55,6 @@ public class InsertarDinero extends AppCompatActivity {
                 //fecha.setText(formato.format(selectedDate.getTime())); // Asignar la fecha formateada al EditText fecha
             }
         });
-
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
