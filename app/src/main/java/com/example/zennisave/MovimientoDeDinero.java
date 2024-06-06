@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zennisave.DBGestion.DB_Gastos;
 import com.example.zennisave.DBGestion.Db_Ingresos;
+import com.example.zennisave.adaptadores.AdapmosTrargasto;
+import com.example.zennisave.adaptadores.AdresumenSing;
 import com.example.zennisave.entidades.Gastos;
 import com.example.zennisave.entidades.Ingresos;
 
 import java.util.ArrayList;
 
-public class ResumenS extends AppCompatActivity {
+public class MovimientoDeDinero extends AppCompatActivity {
     RecyclerView resumenSingreso, resumenSgasto;
     ArrayList<Gastos> resumengastos;
     ArrayList<Ingresos>resumeningresos;
@@ -31,19 +33,23 @@ Button BatrasS;
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_resumen_s);
         BatrasS =findViewById(R.id.AtrasS);
-        resumenSgasto=findViewById(R.id.resumenSgasto);
+
         resumenSingreso=findViewById(R.id.resumenSingreso);
-        resumenSgasto.setLayoutManager(new LinearLayoutManager(this));
+        resumenSgasto=findViewById(R.id.resumenSgasto);
         resumenSingreso.setLayoutManager(new LinearLayoutManager(this));
-        DB_Gastos dbGastos=new DB_Gastos(ResumenS.this);
-        Db_Ingresos dbIngresos=new Db_Ingresos(ResumenS.this);
+        resumenSgasto.setLayoutManager(new LinearLayoutManager(this));
+        Db_Ingresos dbIngresos=new Db_Ingresos(MovimientoDeDinero.this);
+        DB_Gastos dbGastos=new DB_Gastos(MovimientoDeDinero.this);
         resumengastos=new ArrayList<>();
         resumeningresos=new ArrayList<>();
-
+        AdresumenSing adaptadorI = new AdresumenSing(dbIngresos.Mostrardatos());
+        resumenSingreso.setAdapter(adaptadorI);
+        AdapmosTrargasto adaptadorG= new AdapmosTrargasto(dbGastos.Mostrardatosgastos());
+        resumenSgasto.setAdapter(adaptadorG);
         BatrasS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(ResumenS.this,PaginaPrincipal.class);
+                Intent i= new Intent(MovimientoDeDinero.this,PaginaPrincipal.class);
                 startActivity(i);
             }
         });

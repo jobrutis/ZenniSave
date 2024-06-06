@@ -170,7 +170,7 @@
         android:layout_width="365dp"
         android:layout_height="86dp"
         android:shadowColor="#000000"
-        android:text="Para un correcto uso de nuestra aplicación a la hora de insertar dinero o cuando se realice un gasto, es preferible que el formato sea como el siguiente ejemplo 1.20. Se deberá usar el punto en lugar de la coma."
+        android:text="Para un correcto uso de nuestra aplicación a la hora de insertar dinero o cuando se realice un gasto, es preferible que el formato sea como el siguiente ejemplo (1.20). Se deberá usar el punto en lugar de la coma."
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

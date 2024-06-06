@@ -16,7 +16,7 @@
             android:name=".Ayuda"
             android:exported="false" />
         <activity
-            android:name=".ResumenS"
+            android:name=".MovimientoDeDinero"
             android:exported="false" />
         <activity
             android:name=".ResumenM"

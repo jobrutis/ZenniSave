@@ -76,8 +76,8 @@ public class InsertarDinero extends AppCompatActivity {
                 fechaStr = formatter.format(formatDate);
             } else {
                 Date hoy = new Date();
-                SimpleDateFormat espeon = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                fechaStr = espeon.format(hoy);
+                SimpleDateFormat formacambiada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                fechaStr = formacambiada.format(hoy);
             }
             String dineroStr = dinero.getText().toString();
 
@@ -91,20 +91,13 @@ public class InsertarDinero extends AppCompatActivity {
             }
             Toast.makeText(InsertarDinero.this,"Insertado correctamente",Toast.LENGTH_LONG).show();
             limpiar();
-
         }
         });
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-
-
     }
-
 }
 

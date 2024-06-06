@@ -41,7 +41,7 @@ public class AdresumenSing extends RecyclerView.Adapter<AdresumenSing.ResumIView
 
     }
 
-    public class ResumIViewHolder extends RecyclerView.ViewHolder {
+    public static class ResumIViewHolder extends RecyclerView.ViewHolder {
         TextView viewConcepto,viewFecha,viewDinero;
         public ResumIViewHolder(@NonNull View itemView) {
             super(itemView);

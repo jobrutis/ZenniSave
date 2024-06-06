@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Gastos {
     private int id;
     private String concepto;
-    private Date fecha;
+    private String fecha;
     private float dinerogastos;
 
     public int getId() {
@@ -24,11 +24,11 @@ public class Gastos {
         this.concepto = concepto;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

@@ -12,7 +12,7 @@ import java.util.Calendar;
 import androidx.annotation.Nullable;
 
 import com.example.zennisave.InsertarDinero;
-import com.example.zennisave.ResumenS;
+import com.example.zennisave.MovimientoDeDinero;
 import com.example.zennisave.entidades.Ingresos;
 
 import java.text.SimpleDateFormat;
@@ -27,7 +27,7 @@ public class Db_Ingresos extends DBhelper {
         super((Context) context);
         this.context = context;
     }
-    public Db_Ingresos(@Nullable ResumenS context){
+    public Db_Ingresos(@Nullable MovimientoDeDinero context){
         super((Context) context);
         this.context = context;
     }
@@ -90,8 +90,9 @@ public class Db_Ingresos extends DBhelper {
         if (cursoringreso.moveToFirst()) {
             do {
                 ingresos = new Ingresos();
+                ingresos.setId(cursoringreso.getInt(0));
                 ingresos.setConcepto(cursoringreso.getString(1));
-                ingresos.setFecha(Date.valueOf(cursoringreso.getString(2)));
+                ingresos.setFecha(cursoringreso.getString(2));
                 ingresos.setDineroingresos(cursoringreso.getFloat(3));
                 resumenMS.add(ingresos);
             } while (cursoringreso.moveToNext());

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/fondo"
-    tools:context=".ResumenS">
+    tools:context=".MovimientoDeDinero">
 
     <Button
         android:id="@+id/AtrasS"
@@ -22,17 +22,17 @@
 
     <Button
         android:id="@+id/separador"
-        android:layout_width="7dp"
-        android:layout_height="527dp"
+        android:layout_width="5dp"
+        android:layout_height="525dp"
         android:background="#000000"
         android:backgroundTint="#050505"
         android:textColorLink="#090808"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.708" />
 
     <EditText
         android:id="@+id/DineroTotal"
@@ -46,7 +46,7 @@
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.634" />
+        app:layout_constraintVertical_bias="0.615" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resumenSingreso"
@@ -57,17 +57,53 @@
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.744" />
+        app:layout_constraintVertical_bias="0.716" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resumenSgasto"
-        android:layout_width="179dp"
-        android:layout_height="523dp"
+        android:layout_width="170dp"
+        android:layout_height="509dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.854"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759" />
+        app:layout_constraintVertical_bias="0.684" />
+
+    <TextView
+        android:id="@+id/textIngresos"
+        android:layout_width="113dp"
+        android:layout_height="35dp"
+        android:shadowColor="#000000"
+        android:text="Ingresos"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000"
+        android:textColorLink="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16" />
+
+    <TextView
+        android:id="@+id/textgastos"
+        android:layout_width="98dp"
+        android:layout_height="38dp"
+        android:shadowColor="#050505"
+        android:text="Gastos"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000"
+        android:textColorLink="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

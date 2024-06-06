@@ -1,6 +1,5 @@
 package com.example.zennisave;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zennisave.DBGestion.DB_Gastos;
 import com.example.zennisave.DBGestion.DB_Total;
-import com.example.zennisave.DBGestion.Db_Ingresos;
 import com.example.zennisave.adaptadores.AdaptadorDinero;
 import com.example.zennisave.entidades.Total;
 
@@ -38,7 +35,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     RecyclerView verTotal;
 
     ArrayList <Total> totallista;
-    Button Bañadir,BResumenM,BResumenS, Benviar, Bayuda;
+    Button Bañadir,BResumenS, Benviar, Bayuda;
     EditText Cconcepto,Cdinero;
     CalendarView calendario;
     SimpleDateFormat formato;
@@ -57,14 +54,13 @@ public class PaginaPrincipal extends AppCompatActivity {
         Benviar=findViewById(R.id.enviar);
         Cconcepto=findViewById(R.id.concepdar);
         Cdinero=findViewById(R.id.Dinerodar);
-        BResumenM=findViewById(R.id.ResumenM);
         BResumenS=findViewById(R.id.ResumenS);
         Bayuda=findViewById(R.id.ayuda);
         verTotal=findViewById(R.id.verTotal);
         verTotal.setLayoutManager(new LinearLayoutManager(this));
-        DB_Total pikachu=new DB_Total(PaginaPrincipal.this);
+        DB_Total mostrardinero=new DB_Total(PaginaPrincipal.this);
         totallista =new ArrayList<>();
-        AdaptadorDinero adaptadorDinero= new AdaptadorDinero(pikachu.mostrarTotal());
+        AdaptadorDinero adaptadorDinero= new AdaptadorDinero(mostrardinero.mostrarTotal());
         verTotal.setAdapter(adaptadorDinero);
         calendario = findViewById(R.id.calendario);
         formato =new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -75,10 +71,10 @@ public class PaginaPrincipal extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        BResumenM.setOnClickListener(new View.OnClickListener() {
+        BResumenS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(PaginaPrincipal.this,ResumenM.class);
+                Intent i= new Intent(PaginaPrincipal.this,MovimientoDeDinero.class);
                 startActivity(i);
             }
         });
@@ -92,13 +88,7 @@ public class PaginaPrincipal extends AppCompatActivity {
                 //fecha.setText(formato.format(selectedDate.getTime())); // Asignar la fecha formateada al EditText fecha
             }
         });
-        BResumenS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i= new Intent(PaginaPrincipal.this,ResumenS.class);
-                startActivity(i);
-            }
-        });
+
         Benviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,8 +100,8 @@ public class PaginaPrincipal extends AppCompatActivity {
                     fechaStr = formatter.format(formatDate);
                 } else {
                     Date hoy = new Date();
-                    SimpleDateFormat umbreon = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                    fechaStr = umbreon.format(hoy);
+                    SimpleDateFormat fechaCambio = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    fechaStr = fechaCambio.format(hoy);
                 }
                 String dineroStr = Cdinero.getText().toString();
                 try {

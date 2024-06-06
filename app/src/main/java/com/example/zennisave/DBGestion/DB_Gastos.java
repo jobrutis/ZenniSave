@@ -12,7 +12,7 @@ import java.util.Calendar;
 import androidx.annotation.Nullable;
 
 import com.example.zennisave.PaginaPrincipal;
-import com.example.zennisave.ResumenS;
+import com.example.zennisave.MovimientoDeDinero;
 import com.example.zennisave.entidades.Gastos;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +26,7 @@ public class DB_Gastos extends DBhelper {
         super((Context) context);
         this.context = context;
     }
-    public DB_Gastos(@Nullable ResumenS context){
+    public DB_Gastos(@Nullable MovimientoDeDinero context){
         super((Context) context);
         this.context = context;
     }
@@ -77,24 +77,24 @@ public class DB_Gastos extends DBhelper {
         SQLiteDatabase db = dBhelper.getWritableDatabase();
         ArrayList<Gastos> resumenMS = new ArrayList<>();
         Gastos gastos = null;
-        Cursor cursoringreso = null;
+        Cursor cursorgastos = null;
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
         String fechaInicioSemanaActual = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
         cal.add(Calendar.DATE, 6);
         String fechaFinSemanaActual = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
-        String consultaSQL = "SELECT * FROM " + TABLE_GASTOS + " WHERE fecha BETWEEN '" + fechaInicioSemanaActual + "' AND '" + fechaFinSemanaActual + "' ORDER BY fecha DESC";
-        cursoringreso = db.rawQuery(consultaSQL, null);
-        if (cursoringreso.moveToFirst()) {
+        cursorgastos = db.rawQuery("SELECT * FROM " + TABLE_GASTOS, null);
+        if (cursorgastos.moveToFirst()) {
             do {
                 gastos = new Gastos();
-                gastos.setConcepto(cursoringreso.getString(1));
-                gastos.setFecha(Date.valueOf(cursoringreso.getString(2)));
-                gastos.setDinerogastos(cursoringreso.getFloat(3));
+                gastos.setId(cursorgastos.getInt(0));
+                gastos.setConcepto(cursorgastos.getString(1));
+                gastos.setFecha(cursorgastos.getString(2));
+                gastos.setDinerogastos(cursorgastos.getFloat(3));
                 resumenMS.add(gastos);
-            } while (cursoringreso.moveToNext());
+            } while (cursorgastos.moveToNext());
         }
-        cursoringreso.close();
+        cursorgastos.close();
         return resumenMS;
     }
 }
